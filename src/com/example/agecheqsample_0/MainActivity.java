@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.agecheq.agecheqlib.AgeCheqApi;
 import com.agecheq.lib.AgeCheqApi;
 import com.agecheq.lib.AgeCheqServerInterface;
 import com.google.android.gms.ads.identifier.AdvertisingIdClient;
@@ -21,7 +22,7 @@ public class MainActivity extends Activity implements AgeCheqServerInterface {
 	
 	//global variables
 	private String DevKey   = "06c3a8ba-8d2e-429c-9ce6-4f86a70815d6";
-	private String AppId    = "21cdc227-48ad-4cf5-a67c-92f00a3dbef7";
+	private String AppId    = "1c1f66dd-bb5b-499b-bf61-b39eb02a1819";
 	private String DeviceId = "";
 	
 	
@@ -37,18 +38,9 @@ public class MainActivity extends Activity implements AgeCheqServerInterface {
 		//lock in portrait
 		this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); 	
 
-		//get that device id
-	    new GetDeviceId().execute("");
-		
+
 	}
-	
-	public void isRegistered_Click(View view) {
-		doIsRegistered();
-	}
-	
-	public void register_Click(View view) {
-		doRegister();
-	}
+
 	
 	public void check_Click(View view){
 		
@@ -56,15 +48,7 @@ public class MainActivity extends Activity implements AgeCheqServerInterface {
 		
 	}
 	
-	public void agegate_Click(View view) {
-		
-		doAgeGateData();
-	}
-	
-	public void associateData_Click(View view) {
-		
-		doAssociateData();
-	}
+
 	
 	public void infoBox(String message, String title) {
 		
@@ -81,46 +65,15 @@ public class MainActivity extends Activity implements AgeCheqServerInterface {
 	//----------------------------------------
 	// AgeCheq Commands
 	//----------------------------------------
-	private void doIsRegistered() {
 
-		if (!DeviceId.equals("") )
-		{
-			AgeCheqApi.isRegistered(this, DevKey, DeviceId);
-		}
-		else
-		{
-			infoBox("There is no device ID","No Device ID");
-		}
-	}
 	
-	private void doRegister() {
-			
-		if (!DeviceId.equals("") )
-		{
-			//get the edit field
-			EditText editText = (EditText)findViewById(R.id.editText1);
-			
-			//the edit field used to register
-			if (!editText.getText().toString().equals("")) {
-				
-				//the username of the parent dashboard account 
-				String ParentID = editText.getText().toString();
-				
-				//register the device passing the AgeCheq Parent 
-				AgeCheqApi.register(this, DevKey, DeviceId, "New Android Device", ParentID);
-			}
-		}
-		else
-		{
-			infoBox("There is no device ID","No Device ID");
-		}
-		
-	}
-	
+
 	private void doCheck() {
 		if (!DeviceId.equals("") )
 		{
 			AgeCheqApi.check(this, DevKey, DeviceId, AppId);
+
+
 			
 		}
 		else
@@ -136,9 +89,9 @@ public class MainActivity extends Activity implements AgeCheqServerInterface {
 			//get the edit fields
 			EditText txtDataKey = (EditText)findViewById(R.id.editText2);
 			EditText txtDataValue = (EditText)findViewById(R.id.editText3);
-			
-			AgeCheqApi.associateData(this, DevKey, DeviceId, AppId, txtDataKey.getText().toString(), txtDataValue.getText().toString());
-			
+
+            AgeCheqApi.associate(this,DevKey,AppId,"",txtDataValue);
+
 		}
 		else
 		{
@@ -146,52 +99,13 @@ public class MainActivity extends Activity implements AgeCheqServerInterface {
 		}
 		
 	}
-	
-	private void doAgeGateData() {
-		if (!DeviceId.equals("") )
-		{
-			//get the edit fields
-			EditText txtYear = (EditText)findViewById(R.id.editText4);
-			EditText txtMonth = (EditText)findViewById(R.id.editText5);
-			EditText txtDay = (EditText)findViewById(R.id.editText6);
-			
-			AgeCheqApi.agegate(this, DevKey, DeviceId, txtYear.getText().toString(), txtMonth.getText().toString(), txtDay.getText().toString());
-			
-		}
-		else
-		{
-			infoBox("There is no device ID","No Device ID");
-		}
-	
-	}
+
 	
 	//----------------------------------------
 	// Response Handlers
 	//----------------------------------------
     
-    @Override
-    public void onIsRegisteredResponse(String rtn, String rtnmsg, Boolean agecheq_deviceregistered,Boolean agegate_deviceregistered) {
 
-		AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);                      
-	    dlgAlert.setMessage("isRegistered Response = " + rtn +"  message=" + rtnmsg + " - " + "  agecheq_deviceregistered=" + 
-	    		agecheq_deviceregistered.toString() + "  agegate_deviceregistered=" + agegate_deviceregistered.toString() );
-	    dlgAlert.setTitle("ISREGISTERED");              
-	    dlgAlert.setPositiveButton("OK", null);
-	    dlgAlert.setCancelable(true);
-	    dlgAlert.create().show();
-    }
-    
-    @Override
-    public void onRegisterResponse(String rtn, String rtnmsg) {
-
-    	AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);                      
-	    dlgAlert.setMessage("Register Response = " + rtn +"- message=" + rtnmsg );
-	    dlgAlert.setTitle("REGISTER");              
-	    dlgAlert.setPositiveButton("OK", null);
-	    dlgAlert.setCancelable(true);
-	    dlgAlert.create().show();
-	    
-    }    
     
     @Override
     public void onCheckResponse(String rtn, String rtnmsg, int checktype, 
@@ -244,53 +158,14 @@ public class MainActivity extends Activity implements AgeCheqServerInterface {
 	    dlgAlert.create().show();
     }    
 
-    @Override
-    public void onAgegateResponse(String rtn, String rtnmsg) {
-		AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);                      
-	    dlgAlert.setMessage("Agegate Response = " + rtn +"-" + rtnmsg);
-	    dlgAlert.setTitle("AGEGATE");              
-	    dlgAlert.setPositiveButton("OK", null);
-	    dlgAlert.setCancelable(true);
-	    dlgAlert.create().show();
-    }
-    
+
     @Override
     public void onAgeCheqServerError(String paramString) {
 
     }
     
     
-	
-	//-----------------------------------------------
-    // Get Device ID
-    //-----------------------------------------------
-    private class GetDeviceId extends AsyncTask<String, Void, String> {
-    	
-    	@Override
-    	protected String doInBackground(String... params) {
-    		    	
-    		Context c = getApplicationContext();
-    		
-    		Info adInfo = null;
 
-    		try {
-    			adInfo = AdvertisingIdClient.getAdvertisingIdInfo(c);
-    		}
-    		catch (Exception ex) {
-    			Log.d("zz", "Exception: " + ex.getMessage());
-    		}
-    		
-    		String id = adInfo.getId();
-    		return id;
-    	}
-    	
-    	@Override
-    	protected void onPostExecute(String result) {
-    		DeviceId = result;
-    	}
-    	
-    	
-    }
     
 
 }

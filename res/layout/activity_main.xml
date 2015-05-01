@@ -12,15 +12,7 @@
         android:layout_marginTop="19dp"
         android:ems="10" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editText1"
-        android:layout_below="@+id/editText1"
-        android:layout_marginTop="14dp"
-        android:onClick="register_Click"
-        android:text="Register" />
+
 
     <Button
         android:id="@+id/button3"
@@ -32,14 +24,6 @@
         android:onClick="check_Click"
         android:text="Check" />
 
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/button2"
-        android:layout_centerVertical="true"
-        android:ems="10"
-        android:hint="Key" />
 
     <EditText
         android:id="@+id/editText3"
@@ -63,43 +47,7 @@
         android:onClick="associateData_Click"
         android:text="Associate Data" />
 
-    <EditText
-        android:id="@+id/editText4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/editText2"
-        android:layout_below="@+id/button4"
-        android:layout_marginTop="14dp"
-        android:ems="10"
-        android:hint="Year" />
 
-    <EditText
-        android:id="@+id/editText5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/editText4"
-        android:layout_alignLeft="@+id/editText3"
-        android:ems="10"
-        android:hint="Month" />
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="23dp"
-        android:onClick="isRegistered_Click"
-        android:text="isRegistered" />
-
-    <Button
-        android:id="@+id/button5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:onClick="agegate_Click"
-        android:text="Agegate" />
 
     <EditText
         android:id="@+id/editText6"
