@@ -21,8 +21,8 @@ public class MainActivity extends Activity implements AgeCheqServerInterface {
 
 	
 	//global variables
-	private String DevKey   = "06c3a8ba-8d2e-429c-9ce6-4f86a70815d6";
-	private String AppId    = "1c1f66dd-bb5b-499b-bf61-b39eb02a1819";
+	private String DevKey   = "ENTER_YOUR_DEVELOPER_KEY";
+	private String AppId    = "ENTER_YOUR_APP_ID";
 	private String DeviceId = "";
 	
 	
